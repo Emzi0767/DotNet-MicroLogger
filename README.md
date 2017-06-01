@@ -37,13 +37,41 @@ The logger is fairly configurable. Here's a quick explanation of what its settin
 
 ### Registering and unregistering loggers
 
-To register a logger, pass a `System.IO.TextWriter` instance to `.RegisterLogger()`. To unregister a logger, pass its instance to `.UnregisterLogger()`.
+To register a logger, pass a `System.IO.TextWriter` instance to `.RegisterOutput()`. To unregister a logger, pass its instance to `.UnregisterOutput()`.
 
 ### Logging
 
 To log a message, call an appropriate `.Log()` overload.
 
 In for .NET Framework 4.5+ and .NET Standard targets, asynchronous `.LogAsync()` overloads are available.
+
+### Complete example
+
+```cs
+using System;
+using System.IO;
+using System.Text;
+using Emzi0767;
+
+// let's log to a file
+var fn = string.Concat("log-", DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss"), ".log");
+var utf8 = new UTF8Encoding(false);
+
+using (var fs = File.Create(fn))
+using (var sw = new StreamWriter(fs, utf8))
+using (var log = new MicroLogger()) // or just remember to .Dispose() it
+{
+	log.TagLength = 10;
+	log.RegisterOutput(sw);
+	log.RegisterOutput(Console.Out); // also log to console
+	
+	// log something synchronously
+	log.Log(DateTime.Now, LogLevel.Info, "example", "Log registration successful.");
+
+	// log something asynchronously
+	await log.LogAsync(DateTime.Now, LogLevel.Info, "example", "This one was async!");
+}
+```
 
 That's about it. If you have any questions, issues, suggestions, you can always open an issue or submit a PR.
 
