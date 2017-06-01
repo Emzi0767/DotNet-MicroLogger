@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  
+  <PropertyGroup>
+    <TargetFrameworks>net20;net40;net45;net46;net47;netstandard1.0;portable-net40+win8+sl4+wp7</TargetFrameworks>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Authors>Emzi0767</Authors>
+    <Company>Emzi0767</Company>
+    <Description>A tiny logger for wide range of .NET platforms.</Description>
+    <Copyright>© 2017 Emzi0767</Copyright>
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>log, logger, logging, micro, tiny</PackageTags>
+    <RepositoryUrl>https://github.com/Emzi0767/DotNet-MicroLogger</RepositoryUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/Emzi0767/master/art/ulogger.png</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/Emzi0767/DotNet-MicroLogger</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/Emzi0767/DotNet-MicroLogger/blob/master/LICENSE.txt</PackageLicenseUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'portable-net40+win8+sl4+wp7'">
+    <TargetFrameworkIdentifier>.NETPortable</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile2</TargetFrameworkProfile>
+    <DefineConstants>PORTABLE;NO_ASYNC</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net20' OR '$(TargetFramework)' == 'net40'">
+    <DefineConstants>NO_ASYNC</DefineConstants>
+  </PropertyGroup>
+
+</Project>
