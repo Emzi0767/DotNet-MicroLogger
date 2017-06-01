@@ -1,4 +1,6 @@
-﻿# MicroLogger for .NET Framework
+﻿![MicroLogger](https://raw.githubusercontent.com/Emzi0767/DotNet-MicroLogger/master/art/ulogger.png)
+
+# MicroLogger for .NET Framework
 
 A tiny logger implementation for .NET Framework.
 
