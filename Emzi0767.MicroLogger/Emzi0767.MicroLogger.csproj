@@ -10,7 +10,7 @@
     <RepositoryType>Git</RepositoryType>
     <PackageTags>log, logger, logging, micro, tiny</PackageTags>
     <RepositoryUrl>https://github.com/Emzi0767/DotNet-MicroLogger</RepositoryUrl>
-    <PackageIconUrl>https://raw.githubusercontent.com/Emzi0767/master/art/ulogger.png</PackageIconUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/Emzi0767/DotNet-MicroLogger/master/art/ulogger.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/Emzi0767/DotNet-MicroLogger</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/Emzi0767/DotNet-MicroLogger/blob/master/LICENSE.txt</PackageLicenseUrl>
   </PropertyGroup>
