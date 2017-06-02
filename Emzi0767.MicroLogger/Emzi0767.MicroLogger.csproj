@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   
   <PropertyGroup>
-    <TargetFrameworks>net20;net40;net45;net46;net47;netstandard1.0;portable-net40+win8+sl4+wp7</TargetFrameworks>
+    <TargetFrameworks>net20;net40;net45;net46;net47;netstandard1.0;netstandard1.3;portable-net40+win8+sl4+wp7</TargetFrameworks>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Authors>Emzi0767</Authors>
     <Company>Emzi0767</Company>
@@ -13,6 +13,7 @@
     <PackageIconUrl>https://raw.githubusercontent.com/Emzi0767/DotNet-MicroLogger/master/art/ulogger.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/Emzi0767/DotNet-MicroLogger</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/Emzi0767/DotNet-MicroLogger/blob/master/LICENSE.txt</PackageLicenseUrl>
+    <Version>2.0.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'portable-net40+win8+sl4+wp7'">

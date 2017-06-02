@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+using Emzi0767.LogReceivers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Emzi0767.Test
@@ -15,10 +16,10 @@ namespace Emzi0767.Test
             var refstr = string.Concat("[", dt.ToString("yyyy-MM-dd HH:mm:ss zzz"), "] [Test           ] [Info    ] This is a test. Number 42!", Environment.NewLine);
 
             using (var sw = new StringWriter())
-            using (var logger = new MicroLogger())
+            using (var lr = new TextWriterLogReceiver(sw))
+            using (var logger = new MicroLogger(new LoggerSettings { LoggingLevel = LogLevel.Verbose }))
             {
-                logger.LoggingLevel = LogLevel.Verbose;
-                logger.RegisterOutput(sw);
+                logger.RegisterOutput(lr);
 
                 logger.Log(dt, LogLevel.Info, "Test", "This is a test. Number {0}!", 42);
 
@@ -41,10 +42,10 @@ namespace Emzi0767.Test
             var refstr = string.Concat(string.Join(Environment.NewLine, refstrs), Environment.NewLine);
 
             using (var sw = new StringWriter())
-            using (var logger = new MicroLogger())
+            using (var lr = new TextWriterLogReceiver(sw))
+            using (var logger = new MicroLogger(new LoggerSettings { LoggingLevel = LogLevel.Verbose }))
             {
-                logger.LoggingLevel = LogLevel.Verbose;
-                logger.RegisterOutput(sw);
+                logger.RegisterOutput(lr);
 
                 logger.Log(dt, LogLevel.Info, "Test", "This is a test. Number {0}!", 42);
                 logger.Log(dt, LogLevel.Info, "This time, with a double of {0:0.0}.", 4.23);
@@ -63,10 +64,10 @@ namespace Emzi0767.Test
             var refstr = string.Concat("[", dt.ToString("yyyy-MM-dd HH:mm:ss zzz"), "] [Test           ] [Info    ] This is a test. Number 42!", Environment.NewLine);
 
             using (var sw = new StringWriter())
-            using (var logger = new MicroLogger())
+            using (var lr = new TextWriterLogReceiver(sw))
+            using (var logger = new MicroLogger(new LoggerSettings { LoggingLevel = LogLevel.Verbose }))
             {
-                logger.LoggingLevel = LogLevel.Verbose;
-                logger.RegisterOutput(sw);
+                logger.RegisterOutput(lr);
 
                 await logger.LogAsync(dt, LogLevel.Info, "Test", "This is a test. Number {0}!", 42);
 
@@ -89,10 +90,10 @@ namespace Emzi0767.Test
             var refstr = string.Concat(string.Join(Environment.NewLine, refstrs), Environment.NewLine);
 
             using (var sw = new StringWriter())
-            using (var logger = new MicroLogger())
+            using (var lr = new TextWriterLogReceiver(sw))
+            using (var logger = new MicroLogger(new LoggerSettings { LoggingLevel = LogLevel.Verbose }))
             {
-                logger.LoggingLevel = LogLevel.Verbose;
-                logger.RegisterOutput(sw);
+                logger.RegisterOutput(lr);
 
                 await logger.LogAsync(dt, LogLevel.Info, "Test", "This is a test. Number {0}!", 42);
                 await logger.LogAsync(dt, LogLevel.Info, "This time, with a double of {0:0.0}.", 4.23);
