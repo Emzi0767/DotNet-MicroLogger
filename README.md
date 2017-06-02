@@ -12,6 +12,7 @@ The library is compatible with following versions of .NET Framework:
 * .NET Framework 4.6
 * .NET Framework 4.7
 * .NET Standard 1.0 (See [here](https://blogs.msdn.microsoft.com/dotnet/2016/09/26/introducing-net-standard/) for details)
+* .NET Standard 1.3 (See [here](https://blogs.msdn.microsoft.com/dotnet/2016/09/26/introducing-net-standard/) for details)
 * PCL (.NETFX 4.0, Windows 8, Sliverlight 4, Windows Phone 7)
 
 ## Installation
@@ -37,13 +38,19 @@ The logger is fairly configurable. Here's a quick explanation of what its settin
 
 ### Registering and unregistering loggers
 
-To register a logger, pass a `System.IO.TextWriter` instance to `.RegisterOutput()`. To unregister a logger, pass its instance to `.UnregisterOutput()`.
+To create a logger output, create any instance of `BaseLogReceiver`. There are 4 such types supplied by default: `ConsoleLogReceiver` (not available on .NET Standard 1.0 and PCL), `FileLogReceiver` (not available on .NET Standard 1.0 and PCL), `StreamLogReceiver`, and `TextWriterLogReceiver`.
+
+Once you create an instance of a logger output, pass it to `.RegisterOutput()` on the logger instance, passing it the logger output instance.
+
+To unregister a logger output, call `.UnregisterOutput()` on the logger, passing it the logger output instance.
+
+Note that all logger outputs are `IDisposable`, it is recommended you either use it in a `using` block, or remember to `.Dispose()` it when you're done working with it.
 
 ### Logging
 
 To log a message, call an appropriate `.Log()` overload.
 
-In for .NET Framework 4.5+ and .NET Standard targets, asynchronous `.LogAsync()` overloads are available.
+For .NET Framework 4.5+ and .NET Standard targets, asynchronous `.LogAsync()` overloads are available.
 
 ### Complete example
 
@@ -58,12 +65,12 @@ var fn = string.Concat("log-", DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss"), ".l
 var utf8 = new UTF8Encoding(false);
 
 using (var fs = File.Create(fn))
-using (var sw = new StreamWriter(fs, utf8))
-using (var log = new MicroLogger()) // or just remember to .Dispose() it
+using (var lr1 = new FileLogReceiver(fs, utf8))
+using (var lr2 = new ConsoleLogReceiver())
+using (var log = new MicroLogger(new LoggerSettings { TagLength = 10 })) // or just remember to .Dispose() it
 {
-	log.TagLength = 10;
-	log.RegisterOutput(sw);
-	log.RegisterOutput(Console.Out); // also log to console
+	log.RegisterOutput(lr1);
+	log.RegisterOutput(lr2); // also log to console
 	
 	// log something synchronously
 	log.Log(DateTime.Now, LogLevel.Info, "example", "Log registration successful.");
